@@ -1,0 +1,16 @@
+{
+    "name": "amgsiteinsight",
+    "authors": [
+        "Kristen De La Cerda"
+    ],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests",
+        "assets/img",
+        "assets/js",
+        "assets/css/keen-static.css"
+    ]
+}
