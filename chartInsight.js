@@ -12,7 +12,7 @@ Keen.ready(function() {
         .type('area')
         .height(280)
         .stacked(true)
-        .title('Pageviews by browser - Hourly')
+        .title('Hourly Visits by Browser')
         .prepare();
 
     client
@@ -39,7 +39,7 @@ Keen.ready(function() {
         .el('#chart-02')
         .type('pie')
         .height(280)
-        .title('Pageviews by browser')
+        .title('Overeall Visits by browser')
         .prepare();
 
     client
@@ -63,10 +63,10 @@ Keen.ready(function() {
 
     var impressions_timeline = new Keen.Dataviz()
         .el('#chart-03')
-        .type('bar')
+        .type('horizontal-bar')
         .height(280)
         .stacked(true)
-        .title('Daily Pageviews')
+        .title('Daily Visits by Operating System')
         .prepare();
 
     client
@@ -93,7 +93,7 @@ Keen.ready(function() {
         .type('bar')
         .height(280)
         .stacked(true)
-        .title('Weekly Pageviews')
+        .title('Weekly Visits')
         .prepare();
 
     client
@@ -121,7 +121,7 @@ Keen.ready(function() {
         .type('bar')
         .height(280)
         .stacked(true)
-        .title('Visits by Zip Code')
+        .title('Daily Visits by Zip Code')
         .prepare();
 
     client
