@@ -12,7 +12,7 @@ Keen.ready(function() {
         .type('area')
         .height(280)
         .stacked(true)
-        .title('Pageviews by browser')
+        .title('Pageviews by browser - Hourly')
         .prepare();
 
     client
@@ -20,7 +20,7 @@ Keen.ready(function() {
             event_collection: 'pageviews',
             interval: 'hourly',
             group_by: 'user.device_info.browser.family',
-            timeframe: 'this_5_days'
+            timeframe: 'this_3_days'
         })
         .then(function(res) {
             pageviews_timeline
@@ -46,7 +46,7 @@ Keen.ready(function() {
         .query('count', {
             event_collection: 'pageviews',
             group_by: 'user.device_info.browser.family',
-            timeframe: 'this_5_days'
+            timeframe: 'this_3_days'
         })
         .then(function(res) {
             pageviews_pie
@@ -66,15 +66,15 @@ Keen.ready(function() {
         .type('bar')
         .height(280)
         .stacked(true)
-        .title('Impressions by advertiser')
+        .title('Daily Pageviews')
         .prepare();
 
     client
         .query('count', {
             event_collection: 'pageviews',
             group_by: 'ad.advertiser',
-            interval: 'hourly',
-            timeframe: 'this_5_days'
+            interval: 'daily',
+            timeframe: 'this_3_days'
         })
         .then(function(res) {
             impressions_timeline
@@ -93,15 +93,15 @@ Keen.ready(function() {
         .type('bar')
         .height(280)
         .stacked(true)
-        .title('Impressions by device')
+        .title('Weekly Pageviews')
         .prepare();
 
     client
         .query('count', {
             event_collection: 'pageviews',
             group_by: 'user.device_info.device.family',
-            interval: 'hourly',
-            timeframe: 'this_5_days'
+            interval: 'weekly',
+            timeframe: 'this_3_days'
         })
         .then(function(res) {
             impressions_by_device
