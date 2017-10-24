@@ -93,14 +93,14 @@ Keen.ready(function() {
         .type('bar')
         .height(280)
         .stacked(true)
-        .title('Weekly Visits')
+        .title('Daily Visits by State')
         .prepare();
 
     client
         .query('count', {
             event_collection: 'pageviews',
-            group_by: 'geo.postal_code',
-            interval: 'weekly',
+            group_by: 'geo.province',
+            interval: 'daily',
             timeframe: 'this_3_days'
         })
         .then(function(res) {
@@ -114,10 +114,33 @@ Keen.ready(function() {
         });
 
 
+    var pageClicks_pie = new Keen.Dataviz()
+        .el('#chart-05')
+        .type('pie')
+        .height(280)
+        .title('Most Clicked Links')
+        .prepare();
+
+    client
+        .query('count', {
+            event_collection: 'clicks',
+            group_by: 'element.href',
+            timeframe: 'this_3_days'
+        })
+        .then(function(res) {
+            pageClicks_pie
+                .data(res)
+                .sortGroups('desc')
+                .render();
+        })
+        .catch(function(err) {
+            pageClicks_pie.message(err.message)
+        });
     // Impressions by country
 
+    //TESTERS BELOW
     var impressions_by_country = new Keen.Dataviz()
-        .el('#chart-05')
+        .el('#chart-06')
         .type('bar')
         .height(280)
         .stacked(true)
@@ -156,7 +179,7 @@ var impressionsByMetrics = new Keen.Dataviz()
 client
     .query('count', {
         event_collection: 'pageviews',
-        timeframe: 'this_5_days'
+        timeframe: 'this_3_days'
     })
     .then(function(res) {
         // Handle the result
@@ -182,7 +205,7 @@ var chartRandom = new Keen.Dataviz()
 client
     .query('count', {
         event_collection: 'pageviews',
-        timeframe: 'this_5_days',
+        timeframe: 'this_3_days',
         interval: "weekly"
     })
     .then(function(res) {
@@ -212,7 +235,7 @@ client
         group_by: [
             "paired"
         ],
-        timeframe: 'this_5_days'
+        timeframe: 'this_3_days'
     })
     .then(function(res) {
         // Handle the result
@@ -238,7 +261,7 @@ var statesChart = new Keen.Dataviz()
 client
     .query('count', {
         event_collection: 'pageviews',
-        timeframe: 'this_5_days',
+        timeframe: 'this_3_days',
         // group_by: ["user.address.state"],
         group_by: 'visitor.geo.province',
     })
@@ -248,12 +271,6 @@ client
             .data(res)
             .sortGroups('desc')
             .labelMapping({
-                'New Jersey': 'NJ',
-                'Virginia': 'VA',
-                'California': 'CA',
-                'Washington': 'WA',
-                'Utah': 'UT',
-                'Oregon': 'OR',
                 'Texas': 'TX',
                 'null': 'Other'
             })
