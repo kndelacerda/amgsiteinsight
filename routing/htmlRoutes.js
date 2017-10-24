@@ -10,21 +10,21 @@ module.exports = function(app) {
 
     // Home Page
     app.get("/", function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/pages/index.html"));
+        res.sendFile(path.join(__dirname, "../index.html"));
     });
 
     app.get(function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/pages/index.html"));
+        res.sendFile(path.join(__dirname, "../index.html"));
     });
 
     // Example XYZ (Placeholder)
-    app.get("/example", function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/pages/exampleForDataCollection.html"));
+    app.get("/dataCollect", function(req, res) {
+        res.sendFile(path.join(__dirname, "../exampleForDataCollection.html"));
     });
 
     // If no matching route is found, default to the Home Page
     app.get(function(req, res) {
-        res.sendFile(path.join(__dirname, "/../public/pages/index.html"));
+        res.sendFile(path.join(__dirname, "../index.html"));
     });
 
     // Passport Below********
