@@ -19,7 +19,7 @@ Keen.ready(function() {
         .query('count', {
             event_collection: 'pageviews',
             interval: 'hourly',
-            group_by: 'user.device_info.browser.family',
+            group_by: 'tech.browser.family',
             timeframe: 'this_3_days'
         })
         .then(function(res) {
@@ -45,7 +45,7 @@ Keen.ready(function() {
     client
         .query('count', {
             event_collection: 'pageviews',
-            group_by: 'user.device_info.browser.family',
+            group_by: 'tech.browser.family',
             timeframe: 'this_3_days'
         })
         .then(function(res) {
@@ -72,7 +72,7 @@ Keen.ready(function() {
     client
         .query('count', {
             event_collection: 'pageviews',
-            group_by: 'ad.advertiser',
+            group_by: 'tech.os.family',
             interval: 'daily',
             timeframe: 'this_3_days'
         })
@@ -99,7 +99,7 @@ Keen.ready(function() {
     client
         .query('count', {
             event_collection: 'pageviews',
-            group_by: 'user.device_info.device.family',
+            group_by: 'geo.postal_code',
             interval: 'weekly',
             timeframe: 'this_3_days'
         })
@@ -121,14 +121,14 @@ Keen.ready(function() {
         .type('bar')
         .height(280)
         .stacked(true)
-        .title('Impressions by country')
+        .title('Visits by Zip Code')
         .prepare();
 
     client
         .query('count', {
             event_collection: 'pageviews',
-            group_by: 'user.geo_info.country',
-            interval: 'hourly',
+            group_by: 'geo.postal_code',
+            interval: 'daily',
             timeframe: 'this_5_days'
         })
         .then(function(res) {
@@ -146,7 +146,7 @@ Keen.ready(function() {
 // NOT ADDED YET TO HTML ================= 
 
 // METRIC (blue)
-var chart = new Keen.Dataviz()
+var impressionsByMetrics = new Keen.Dataviz()
     .el('#chart-06')
     .height(300)
     .prepare();
@@ -160,18 +160,18 @@ client
     })
     .then(function(res) {
         // Handle the result
-        chart
+        impressionsByMetrics
             .data(res)
             .render();
     })
     .catch(function(err) {
         // Handle the error
-        chart
+        impressionsByMetrics
             .message(err.message);
     });
 
 // bar chart (NOT stacked)
-var chart = new Keen.Dataviz()
+var chartRandom = new Keen.Dataviz()
     .el('#chart-07')
     .type("bar")
     .height(300)
@@ -187,18 +187,18 @@ client
     })
     .then(function(res) {
         // Handle the result
-        chart
+        chartRandom
             .data(res)
             .render();
     })
     .catch(function(err) {
         // Handle the error
-        chart
+        chartRandom
             .message(err.message);
     });
 
 // horizontal chart
-var chart = new Keen.Dataviz()
+var horizontalChart = new Keen.Dataviz()
     .el('#chart-08')
     .type("horizontal-bar")
     .height(300)
@@ -216,18 +216,18 @@ client
     })
     .then(function(res) {
         // Handle the result
-        chart
+        horizontalChart
             .data(res)
             .render();
     })
     .catch(function(err) {
         // Handle the error
-        chart
+        horizontalChart
             .message(err.message);
     });
 
 // states table
-var chart = new Keen.Dataviz()
+var statesChart = new Keen.Dataviz()
     .el('#chart-09')
     .type("table")
     .height(300)
@@ -239,19 +239,28 @@ client
     .query('count', {
         event_collection: 'pageviews',
         timeframe: 'this_5_days',
-        group_by: ["user.address.state"],
+        // group_by: ["user.address.state"],
+        group_by: 'visitor.geo.province',
     })
     .then(function(res) {
         // Handle the result
-        chart
+        statesChart
             .data(res)
             .sortGroups('desc')
+            .labelMapping({
+                'New Jersey': 'NJ',
+                'Virginia': 'VA',
+                'California': 'CA',
+                'Washington': 'WA',
+                'Utah': 'UT',
+                'Oregon': 'OR',
+                'Texas': 'TX',
+                'null': 'Other'
+            })
             .render();
     })
     .catch(function(err) {
         // Handle the error
-        chart
+        statesChart
             .message(err.message);
     });
-
-//
